@@ -39,23 +39,30 @@ int main(int argc, char *argv[])
             scanf("%d", &opcivic);
             if (opcivic == 1)
             {
-                puntajes[i] += 3;
-                printf("Ingrese en numeros la cant de armas obtenidas del juagdor %s.\n", players[i]);
+                puntajes[i] += 3; // Acumular puntos
+                printf("Ingrese en numeros la cant de armas obtenidas del jugador %s.\n", players[i]);
                 fflush(stdin);
-                scanf("%d", &cant_armas[i]);
-                printf("Ingrese en numeros la cant de armas obtenidas del juagdor %s.\n", players[j]);
+                int armas_obtenidas = 0;
+                scanf("%d", &armas_obtenidas);
+                cant_armas[i] += armas_obtenidas; // Acumular armas obtenidas
+            
+                printf("Ingrese en numeros la cant de armas obtenidas del jugador %s.\n", players[j]);
                 fflush(stdin);
-                scanf("%d", &cant_armas[j]);
+                scanf("%d", &armas_obtenidas);
+                cant_armas[j] += armas_obtenidas; // Acumular armas obtenidas
             }
             if (opcivic == 2)
             {
                 puntajes[j] += 3;
                 printf("Ingrese en numeros la cant de armas obtenidas del juagdor %s.\n", players[i]);
                 fflush(stdin);
+                int armas_obtenidas = 0;
                 scanf("%d", &cant_armas[i]);
+                cant_armas[i] += armas_obtenidas; // Acumular armas obtenidas
                 printf("Ingrese en numeros la cant de armas obtenidas del juagdor %s.\n", players[j]);
                 fflush(stdin);
                 scanf("%d", &cant_armas[j]);
+                cant_armas[j] += armas_obtenidas;
             }
             else if (opcivic == 3)
             {
@@ -63,15 +70,22 @@ int main(int argc, char *argv[])
                 puntajes[j] += 1;
                 printf("Ingrese en numeros la cant de armas obtenidas del juagdor %s.\n", players[i]);
                 fflush(stdin);
+                int armas_obtenidas = 0;
                 scanf("%d", &cant_armas[i]);
+                cant_armas[i] += armas_obtenidas;
                 printf("Ingrese en numeros la cant de armas obtenidas del juagdor %s.\n", players[j]);
                 fflush(stdin);
                 scanf("%d", &cant_armas[j]);
+                cant_armas[j] += armas_obtenidas;
             }
         }
     }
     // lógica de diferenciación de armas y victorias(puntaje) con bubble sort
     //  Ordenar los jugadores por puntaje y, si hay empate, por armas
+
+    int temp_P, temp_A;
+    char temp_name[30];
+
     for (int i = 0; i < 4 - 1; i++) // Hasta el penúltimo jugador
 {
     for (int j = 0; j < 4 - i - 1; j++) // Comparar jugadores consecutivos
@@ -81,17 +95,17 @@ int main(int argc, char *argv[])
            (puntajes[j] == puntajes[j + 1] && cant_armas[j] < cant_armas[j + 1]))
         {
             // Intercambiar puntajes
-            int temp = puntajes[j];
+            temp_P = puntajes[j];
             puntajes[j] = puntajes[j + 1];
-            puntajes[j + 1] = temp;
+            puntajes[j + 1] = temp_P;
 
             // Intercambiar armas
-            temp = cant_armas[j];
+            temp_A = cant_armas[j];
             cant_armas[j] = cant_armas[j + 1];
-            cant_armas[j + 1] = temp;
+            cant_armas[j + 1] = temp_A;
 
             // Intercambiar nombres
-            char temp_name[30];
+            //ya estác hecho fuera la inicializacion de temp
             strcpy(temp_name, players[j]);
             strcpy(players[j], players[j + 1]);
             strcpy(players[j + 1], temp_name);
